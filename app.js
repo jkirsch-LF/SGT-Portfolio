@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const exphbs  = require('express-handlebars');
+const exphbs = require('express-handlebars');
 const methodOverride = require('method-override');
 const flash = require('connect-flash');
 const session = require('express-session');
@@ -17,12 +17,13 @@ const users = require('./routes/users');
 // Passport Config
 require('./config/passport')(passport);
 
-const PORT = 3000;
+// DB Config
+const db = require('./config/database');
 
 // Mongoose Middleware
 mongoose.Promise = global.Promise;
 
-mongoose.connect('mongodb://localhost/vidjot-dev')
+mongoose.connect(db.mongoURI)
     .then(() => console.log('MongoDB Connected'))
     .catch(err => console.log(err));
 
@@ -82,6 +83,8 @@ app.get('/about', (req, res) => {
 app.use('/ideas', ideas);
 app.use('/users', users);
 
+
+const PORT = process.env.PORT || 5000;
 //Listener
 app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`)
