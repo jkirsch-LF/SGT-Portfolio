@@ -7,11 +7,18 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const mongoose = require('mongoose');
+const { generateStudents } = require('./helpers/generateNames');
 
 const app = express();
 
+
+/** Use this to generate more students */
+// require('./models/Student');
+// const Student = mongoose.model('students');
+// generateStudents();
+
 // Load Routes
-const ideas = require('./routes/ideas');
+const classes = require('./routes/classes');
 const users = require('./routes/users');
 
 // Passport Config
@@ -19,6 +26,9 @@ require('./config/passport')(passport);
 
 // DB Config
 const db = require('./config/database');
+
+// Handlebars Helpers
+const { select } = require('./helpers/hbs');
 
 // Mongoose Middleware
 mongoose.Promise = global.Promise;
@@ -29,6 +39,9 @@ mongoose.connect(db.mongoURI)
 
 // HandleBars Middleware
 app.engine('handlebars', exphbs({
+    helpers: {
+        select: select
+    },
     defaultLayout: 'main'
 }));
 app.set('view engine', 'handlebars');
@@ -80,11 +93,11 @@ app.get('/about', (req, res) => {
 })
 
 // Use Routes
-app.use('/ideas', ideas);
+app.use('/classes', classes);
 app.use('/users', users);
 
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 //Listener
 app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`)

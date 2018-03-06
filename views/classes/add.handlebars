@@ -1,0 +1,18 @@
+<div class="card card-body">
+    <h3>Add Class</h3>
+    <form action="/classes" method="POST">
+        <div class="form-group">
+            <label for="title">Class Name</label>
+            <input type="text" class="form-control" name="title" required>
+        </div>
+        <div class="form-group">
+            <select class="custom-select" name="semester">
+                <option>Spring 18</option>
+                <option>Summer 18</option>
+                <option>Fall 18</option>
+                <option>Winter 18</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>

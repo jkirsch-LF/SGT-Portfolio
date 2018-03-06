@@ -1,7 +1,7 @@
 {
-  "name": "vidjot",
+  "name": "sgt",
   "version": "1.0.0",
-  "description": "App to create video ideas",
+  "description": "Allows teachers to keep track of student grades",
   "main": "app.js",
   "scripts": {
     "start": "node app.js"

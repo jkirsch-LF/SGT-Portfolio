@@ -1,17 +1,21 @@
 const mongoose = require('mongoose');
 const Schema   = mongoose.Schema;
 
-const UserSchema = new Schema({
-    name: {
+const StudentSchema = new Schema({
+    firstName: {
         type: String,
         required: true
     },
-    email: {
+    lastName: {
         type: String,
         required: true
     },
-    password: {
-        type: String,
+    grade: {
+        type: Number,
+        required: true
+    },
+    studentId: {
+        type: Number,
         required: true
     },
     classes: {
@@ -20,4 +24,4 @@ const UserSchema = new Schema({
     }
 });
 
-mongoose.model('users', UserSchema);
+mongoose.model('students', StudentSchema);
