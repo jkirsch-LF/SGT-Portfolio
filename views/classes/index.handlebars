@@ -6,21 +6,21 @@
         <p>{{semester}}</p>
     </div>
     <div class="p-4 flex-row">
-        {{!--
-        <button class="btn btn-success mx-1 " data-toggle="collapse" data-target="#{{id}}add" aria-expanded="true" aria-controls="collapseOne">
+        
+        <button class="btn btn-success mx-1 my-2" data-toggle="collapse" data-target="#{{id}}add" aria-expanded="true" aria-controls="collapseOne">
             Add Student
-        </button> --}}
+        </button>
         <div style="display:inline">
-            <a href="/students/add/{{id}}" class="btn btn-success mx-1">Add Student</a>
+            <a href="/students/add/{{id}}" class="btn btn-warning mx-1 my-2">Generate List of Students</a>
         </div>
 
-        <button class="btn btn-info mx-1 " data-toggle="collapse" data-target="#{{id}}" aria-expanded="true" aria-controls="collapseOne">
+        <button class="btn btn-info mx-1 my-2" data-toggle="collapse" data-target="#{{id}}" aria-expanded="true" aria-controls="collapseOne">
             Show Students
         </button>
         <div style="display:inline">
-            <a href="/classes/edit/{{id}}" class="btn btn-dark mx-1">Edit Class</a>
+            <a href="/classes/edit/{{id}}" class="btn btn-dark mx-1 my-2">Edit Class</a>
         </div>
-        <form action="/classes/{{id}}?_method=DELETE" method="POST" class="mx-1" style="display:inline">
+        <form action="/classes/{{id}}?_method=DELETE" method="POST" class="mx-1 my-2" style="display:inline">
             <input type="hidden" name="_method" value="DELETE">
             <input type="submit" class="btn btn-danger " value="Delete">
         </form>
@@ -32,19 +32,19 @@
         <h2>{{title}}</h2>
         <p>{{semester}}</p>
     </div>
-    <div class="p-4 flex-row">
-        <button class="btn btn-success mx-1" data-toggle="collapse" data-target="#{{id}}add" aria-expanded="true" aria-controls="collapseOne">
+    <div class="p-2 flex-row">
+        <button class="btn btn-success mx-1 my-2" data-toggle="collapse" data-target="#{{id}}add" aria-expanded="true" aria-controls="collapseOne">
             <i class="fa fa-user-plus"></i>
         </button>
         <div style="display:inline">
-            <a href="/classes/edit/{{id}}" class="btn btn-dark mx-1">
+            <a href="/classes/edit/{{id}}" class="btn btn-dark mx-1 my-2">
                 <i class="fa fa-edit"></i>
             </a>
         </div>
-        <button class="btn btn-info mx-1" data-toggle="collapse" data-target="#{{id}}" aria-expanded="true" aria-controls="collapseOne">
+        <button class="btn btn-info mx-1 my-2" data-toggle="collapse" data-target="#{{id}}" aria-expanded="true" aria-controls="collapseOne">
             <i class="fa fa-list"></i>
         </button>
-        <form action="/classes/{{id}}?_method=DELETE" method="POST" class="mx-1" style="display:inline">
+        <form action="/classes/{{id}}?_method=DELETE" method="POST" class="mx-1 my-2" style="display:inline">
             <input type="hidden" name="_method" value="DELETE">
             <button class="btn btn-danger " value="Delete">
                 <i class="fa fa-ban"></i>
@@ -93,7 +93,7 @@
                     <td>{{grade}}</td>
                     <td>{{studentId}}</td>
                     <td>
-                        <form action="/students/{{students.id}}?_method=DELETE" method="POST" class="text-center">
+                        <form action="/students/{{id}}?_method=DELETE" method="POST" class="text-center">
                             <input type="hidden" name="_method" value="DELETE">
                             <input type="submit" class="btn btn-danger" value="Remove">
                         </form>

@@ -1,5 +1,18 @@
 .footer{
     position: fixed;
-    bottom: 2%;
-    left: 50%;
+    line-height: 3.0;
+    bottom: 0;
+    width: 100%;
+    background-color: #343a40;
+}
+.footer a{
+    color: white;
+}
+
+body{
+    margin-bottom:48px;
+}
+
+.card {
+    background-color: #e9ecef;
 }

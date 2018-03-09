@@ -61,4 +61,13 @@ router.get('/add/:id', ensureAuthenticated, (req, res) => {
         });
 });
 
+// Delete Classes
+router.delete('/:id', ensureAuthenticated, (req, res) => {
+    Students.remove({ _id: req.params.id })
+        .then(() => {
+            req.flash('success_msg', 'Student removed');
+            res.redirect('../classes/')
+        });
+});
+
 module.exports = router;
