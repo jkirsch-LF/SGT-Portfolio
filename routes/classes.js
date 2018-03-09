@@ -6,12 +6,15 @@ const { ensureAuthenticated } = require('../helpers/auth');
 // Load Ideas Model
 require('../models/Classes');
 const Classes = mongoose.model('classes');
+require('../models/Student');
+const Students = mongoose.model('students');
 
 
 // Classes Index Page
 router.get('/', ensureAuthenticated, (req, res) => {
     Classes.find({ teacher: req.user.id })
         .sort({ semester: 'asc' })
+        .populate('students')
         .then(classes => {
             res.render('classes/index', {
                 classes: classes
@@ -25,7 +28,7 @@ router.get('/add', ensureAuthenticated, (req, res) => {
 });
 
 // Edit Classes Form
-router.get('/edit/:id',(req, res) => {
+router.get('/edit/:id', (req, res) => {
     Classes.findOne({
         _id: req.params.id
     })
@@ -63,7 +66,8 @@ router.post('/', ensureAuthenticated, (req, res) => {
         const newClass = {
             title: req.body.title,
             semester: req.body.semester,
-            teacher: req.user
+            teacher: req.user,
+            classes: []
         }
         new Classes(newClass)
             .save()
@@ -82,7 +86,8 @@ router.put('/:id', ensureAuthenticated, (req, res) => {
         .then(classes => {
             classes.title = req.body.title;
             classes.semester = req.body.semester;
-            classes.teacher = req.user
+            classes.teacher = req.user,
+                classes.classes = []
 
             classes.save()
                 .then(classes => {
@@ -98,19 +103,6 @@ router.delete('/:id', ensureAuthenticated, (req, res) => {
         .then(() => {
             req.flash('success_msg', 'Class removed');
             res.redirect('/classes');
-        });
-});
-
-// Manage Students
-router.get('/:id/students', ensureAuthenticated, (req, res) => {
-    let classID = (req.params.id).toString();
-    Classes.find({
-        teacher: req.user,
-        class: Classes.classID
-    })
-        .then((students) => {
-            console.log(students);
-            res.redirect('/classes/' + req.params.id);
         });
 });
 

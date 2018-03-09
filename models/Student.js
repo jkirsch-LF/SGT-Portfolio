@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Schema   = mongoose.Schema;
+const Schema = mongoose.Schema;
 
 const StudentSchema = new Schema({
     firstName: {
@@ -18,10 +18,12 @@ const StudentSchema = new Schema({
         type: Number,
         required: true
     },
-    classes: {
-        type: Schema.Types.ObjectId,
-        ref: 'classes'
-    }
+    classes: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'classes'
+        }
+    ]
 });
 
 mongoose.model('students', StudentSchema);

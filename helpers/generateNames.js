@@ -22000,7 +22000,7 @@ module.exports = {
             let student = {
                 firstName: firstNames[Math.floor(Math.random() * firstNames.length) + 1],
                 lastName: lastNames[Math.floor(Math.random() * lastNames.length) + 1],
-                studentId: (Math.floor(Math.random() * 99999) + 10000),
+                studentId: (Math.floor(Math.random() * 89999) + 10000),
                 grade: (Math.floor(Math.random() * 4) + 9),
             }
 
@@ -22009,7 +22009,8 @@ module.exports = {
                     firstName: student.firstName,
                     lastName: student.lastName,
                     studentId: student.studentId,
-                    grade: student.grade
+                    grade: student.grade,
+                    classes: []
                 });
                 newStudent.save()
             });

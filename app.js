@@ -18,8 +18,10 @@ const app = express();
 // generateStudents();
 
 // Load Routes
+const students = require('./routes/students');
 const classes = require('./routes/classes');
 const users = require('./routes/users');
+
 
 // Passport Config
 require('./config/passport')(passport);
@@ -93,6 +95,7 @@ app.get('/about', (req, res) => {
 })
 
 // Use Routes
+app.use('/students', students);
 app.use('/classes', classes);
 app.use('/users', users);
 

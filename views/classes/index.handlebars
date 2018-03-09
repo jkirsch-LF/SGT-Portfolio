@@ -6,9 +6,14 @@
         <p>{{semester}}</p>
     </div>
     <div class="p-4 flex-row">
+        {{!--
         <button class="btn btn-success mx-1 " data-toggle="collapse" data-target="#{{id}}add" aria-expanded="true" aria-controls="collapseOne">
             Add Student
-        </button>
+        </button> --}}
+        <div style="display:inline">
+            <a href="/students/add/{{id}}" class="btn btn-success mx-1">Add Student</a>
+        </div>
+
         <button class="btn btn-info mx-1 " data-toggle="collapse" data-target="#{{id}}" aria-expanded="true" aria-controls="collapseOne">
             Show Students
         </button>
@@ -28,12 +33,6 @@
         <p>{{semester}}</p>
     </div>
     <div class="p-4 flex-row">
-        <form action="/classes/{{id}}?_method=DELETE" method="POST" class="mx-1" style="display:inline">
-            <input type="hidden" name="_method" value="DELETE">
-            <button class="btn btn-danger " value="Delete">
-                <i class="fa fa-ban"></i>
-            </button>
-        </form>
         <button class="btn btn-success mx-1" data-toggle="collapse" data-target="#{{id}}add" aria-expanded="true" aria-controls="collapseOne">
             <i class="fa fa-user-plus"></i>
         </button>
@@ -43,8 +42,14 @@
             </a>
         </div>
         <button class="btn btn-info mx-1" data-toggle="collapse" data-target="#{{id}}" aria-expanded="true" aria-controls="collapseOne">
-            <i class="fa fa-search"></i>
+            <i class="fa fa-list"></i>
         </button>
+        <form action="/classes/{{id}}?_method=DELETE" method="POST" class="mx-1" style="display:inline">
+            <input type="hidden" name="_method" value="DELETE">
+            <button class="btn btn-danger " value="Delete">
+                <i class="fa fa-ban"></i>
+            </button>
+        </form>
     </div>
 </div>
 
@@ -61,18 +66,41 @@
 <div id="{{id}}" class="collapse" aria-labelledby="heading{{id}}" data-parent="#accordion">
     <div class="card-body">
         {{#if students}}
-        <h4>Students:</h4>
-        <table class="table-hover">
-            {{#each students}}
-            <tr>
-                <th>Name</th>
-                <th>Grade</th>
-            </tr>
-            <tr>
-                <td>Name: {{students.name}}</td>
-                <td>Grade: {{students.grade}}</td>
-            </tr>
-            {{/each}}
+        <table class="table table-hover table-bordered student-table" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Grade</th>
+                    <th scope="col">Student Id</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th scope="col">First</th>
+                    <th scope="col">Last</th>
+                    <th scope="col">Grade</th>
+                    <th scope="col">Student Id</th>
+                    <th scope="col"></th>
+                </tr>
+            </tfoot>
+            <tbody>
+                {{#each students}}
+                <tr scope="row">
+                    <td>{{firstName}}</td>
+                    <td>{{lastName}}</td>
+                    <td>{{grade}}</td>
+                    <td>{{studentId}}</td>
+                    <td>
+                        <form action="/students/{{students.id}}?_method=DELETE" method="POST" class="text-center">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="submit" class="btn btn-danger" value="Remove">
+                        </form>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
         </table>
         {{else}}
         <p>No students in this class.</p>
