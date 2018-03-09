@@ -6,15 +6,15 @@
         <p>{{semester}}</p>
     </div>
     <div class="p-4 flex-row">
-        
-        <button class="btn btn-success mx-1 my-2" data-toggle="collapse" data-target="#{{id}}add" aria-expanded="true" aria-controls="collapseOne">
+
+        <button class="btn btn-success addStudent mx-1 my-2" data-toggle="collapse" data-target="#{{id}}" aria-expanded="true" aria-controls="collapseOne">
             Add Student
         </button>
         <div style="display:inline">
             <a href="/students/add/{{id}}" class="btn btn-warning mx-1 my-2">Generate List of Students</a>
         </div>
 
-        <button class="btn btn-info mx-1 my-2" data-toggle="collapse" data-target="#{{id}}" aria-expanded="true" aria-controls="collapseOne">
+        <button class="btn btn-info mx-1 my-2" data-toggle="collapse" data-target="#{{id}}show" aria-expanded="true" aria-controls="collapseOne">
             Show Students
         </button>
         <div style="display:inline">
@@ -33,7 +33,7 @@
         <p>{{semester}}</p>
     </div>
     <div class="p-2 flex-row">
-        <button class="btn btn-success mx-1 my-2" data-toggle="collapse" data-target="#{{id}}add" aria-expanded="true" aria-controls="collapseOne">
+        <button class="btn btn-success addStudent mx-1 my-2" data-toggle="collapse" data-target="#{{id}}" aria-expanded="true" aria-controls="collapseOne">
             <i class="fa fa-user-plus"></i>
         </button>
         <div style="display:inline">
@@ -41,7 +41,7 @@
                 <i class="fa fa-edit"></i>
             </a>
         </div>
-        <button class="btn btn-info mx-1 my-2" data-toggle="collapse" data-target="#{{id}}" aria-expanded="true" aria-controls="collapseOne">
+        <button class="btn btn-info mx-1 my-2" data-toggle="collapse" data-target="#{{id}}show" aria-expanded="true" aria-controls="collapseOne">
             <i class="fa fa-list"></i>
         </button>
         <form action="/classes/{{id}}?_method=DELETE" method="POST" class="mx-1 my-2" style="display:inline">
@@ -53,17 +53,25 @@
     </div>
 </div>
 
-<div id="{{id}}add" class="collapse" aria-labelledby="heading{{id}}add" data-parent="#accordion">
-    <div class="card-body flex-row">
-        <form action="/classes/" method="POST" class="col-sm-10" style="display:inline">
-            <input type="hidden" name="_method" value="POST">
-            <button class="btn btn-danger " value="Delete">
-                <i class="fa fa-ban"></i>
-            </button>
+<div id="{{id}}" class="collapse" aria-labelledby="heading{{id}}" data-parent="#accordion">
+    <div class="card-body">
+        <form action="/students/{{id}}" method="POST" style="display:inline">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <button class="btn btn-success">
+                        <i class="fa fa-user-plus"></i>
+                    </button>
+                </div>
+                <select class="custom-select" id="studentInput" name="studentId">
+                    {{#each ../studentData}}
+                       <option value={{id}}>{{firstName}}   {{lastName}}</option>
+                    {{/each}}
+                </select>
+            </div>
         </form>
     </div>
 </div>
-<div id="{{id}}" class="collapse" aria-labelledby="heading{{id}}" data-parent="#accordion">
+<div id="{{id}}show" class="collapse" aria-labelledby="heading{{id}}show" data-parent="#accordion">
     <div class="card-body">
         {{#if students}}
         <table class="table table-hover table-bordered student-table" cellspacing="0" width="100%">
@@ -73,7 +81,7 @@
                     <th scope="col">Last Name</th>
                     <th scope="col">Grade</th>
                     <th scope="col">Student Id</th>
-                    <th scope="col"></th>
+                    <td></td>
                 </tr>
             </thead>
             <tfoot>
@@ -82,7 +90,7 @@
                     <th scope="col">Last</th>
                     <th scope="col">Grade</th>
                     <th scope="col">Student Id</th>
-                    <th scope="col"></th>
+                    <td></td>
                 </tr>
             </tfoot>
             <tbody>

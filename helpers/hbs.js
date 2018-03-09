@@ -1,3 +1,7 @@
+const mongoose = require('mongoose');
+require('../models/Student');
+const Student = mongoose.model('students');
+
 module.exports = {
     select: function (selected, options) {
         return options.fn(this)

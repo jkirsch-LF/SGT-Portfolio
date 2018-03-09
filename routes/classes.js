@@ -16,9 +16,15 @@ router.get('/', ensureAuthenticated, (req, res) => {
         .sort({ semester: 'asc' })
         .populate('students')
         .then(classes => {
-            res.render('classes/index', {
-                classes: classes
-            });
+            Students.find()
+                .sort({ firstName: 'asc' })
+                .then(studentData => {
+                    res.render('classes/index', {
+                        classes: classes,
+                        studentData: studentData
+                    });
+                })
+
         })
 });
 
@@ -101,8 +107,17 @@ router.put('/:id', ensureAuthenticated, (req, res) => {
 router.delete('/:id', ensureAuthenticated, (req, res) => {
     Classes.remove({ _id: req.params.id })
         .then(() => {
-            req.flash('success_msg', 'Class removed');
-            res.redirect('/classes');
+            Students.find({ classes: { _id: req.params.id } })
+                .then(students => {
+                    console.log('Student: ', students[0]);
+                    Students.updateMany({},
+                        { $pull: { classes: req.params.id } },
+                        function (err, raw) {
+                            req.flash('success_msg', 'Class deleted');
+                            res.redirect('/classes');
+                        }
+                    )
+                })
         });
 });
 
