@@ -16,3 +16,7 @@ body{
 .card {
     background-color: #e9ecef;
 }
+
+::-webkit-scrollbar { 
+    display: none; 
+}
