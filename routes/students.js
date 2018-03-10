@@ -25,13 +25,12 @@ router.get('/:id/students', ensureAuthenticated, (req, res) => {
 router.post('/:id', ensureAuthenticated, (req, res) => {
     Classes.findById(req.params.id)
         .then((classFound) => {
-            Students.findById(req.body.id)
+            Students.findById(req.body.studentId)
                 .then((student) => {
                     Classes.update(
                         { _id: req.params.id },
                         { $addToSet: { students: student } },
                         function (err, results) {
-                            
                             if (results.nModified > 0) {
                                 Students.update(
                                     { _id: student },
